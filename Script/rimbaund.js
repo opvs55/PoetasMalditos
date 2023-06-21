@@ -87,9 +87,9 @@ function captureScroll(poemText, query) {
 
 
 
-captureScroll(poemLines, '.poem', 200);
-captureScroll(poemLines1, '.poem1', 1000);
-captureScroll(poemLines2, '.poem2', 1800);
-captureScroll(poemLine3, '.poem3', 2500);
-captureScroll(poemLine4, '.poem4', 3300);
-captureScroll(poemLine5, '.poem5', 4300);
+captureScroll(poemLines, '.poem');
+captureScroll(poemLines1, '.poem1');
+captureScroll(poemLines2, '.poem2');
+captureScroll(poemLine3, '.poem3');
+captureScroll(poemLine4, '.poem4');
+captureScroll(poemLine5, '.poem5');
