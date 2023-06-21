@@ -40,13 +40,12 @@ const poemLine5 = [
     "Podem desvendar os segredos mais profundos da vida."
 ]
 
-function captureScroll(poemText, query, active) {
-
+function captureScroll(poemText, query) {
     var poemContainer = document.querySelector(query);
-    var linesToShow = 0; // Variável para controlar quantas linhas foram exibidas
-    var currentLineIndex = 0; // Variável para controlar qual linha está sendo exibida
-    var currentText = ''; // Variável para armazenar o texto atual da linha
-    var typingSpeed = 80; // Velocidade de digitação (em milissegundos)
+    var linesToShow = 0;
+    var currentLineIndex = 0;
+    var currentText = '';
+    var typingSpeed = 80;
 
     function typeText() {
         if (currentText.length < poemText[currentLineIndex].length) {
@@ -58,7 +57,7 @@ function captureScroll(poemText, query, active) {
             currentLineIndex++;
             currentText = '';
             if (linesToShow < poemText.length) {
-                setTimeout(typeText, typingSpeed); // Adiciona um atraso antes de passar para a próxima linha
+                setTimeout(typeText, typingSpeed);
             }
         }
     }
@@ -72,27 +71,23 @@ function captureScroll(poemText, query, active) {
         return text;
     }
 
-    window.addEventListener("scroll", function () {
-        var scrollY = window.scrollY;
-        console.log("Posição do eixo Y:", scrollY);
-
-        if (scrollY >= active && linesToShow < poemText.length) {
-            if (currentLineIndex === linesToShow) {
-                if (currentText === '') {
-                    typeText();
-                }
-            } else {
-                linesToShow++;
-                poemContainer.textContent = getCurrentText();
+    var observer = new IntersectionObserver(function (entries, observer) {
+        entries.forEach(function (entry) {
+            if (entry.intersectionRatio > 0) {
+                typeText();
+                observer.unobserve(entry.target);
             }
-        }
+        });
     });
+
+    observer.observe(poemContainer);
 }
 
 
 
 
-captureScroll(poemLines, '.poem', 200 );
+
+captureScroll(poemLines, '.poem', 200);
 captureScroll(poemLines1, '.poem1', 1000);
 captureScroll(poemLines2, '.poem2', 1800);
 captureScroll(poemLine3, '.poem3', 2500);
